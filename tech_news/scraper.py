@@ -1,5 +1,6 @@
 import requests
 import time
+from parsel import Selector
 
 
 # Requisito 1
@@ -17,8 +18,10 @@ def fetch(url: str, wait: int = 1) -> str:
 
 
 # Requisito 2
-def scrape_novidades(html_content):
-    """Seu código deve vir aqui"""
+def scrape_novidades(html_content) -> list:
+    selector = Selector(html_content)
+    url = "article.entry-preview h2.entry-title a::attr(href)"
+    return selector.css(url).getall()
 
 
 # Requisito 3
